@@ -1,5 +1,6 @@
 #include "mainwindow.h"
-#include "loginwindow.h"
+
+#include "authorizationwindow.h"
 
 #include "ui_mainwindow.h"
 
@@ -15,10 +16,13 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_pushButton_clicked()
-{
-    loginWindow loginWindow;
-    loginWindow.setModal(true);
-    loginWindow.exec();
-}
+// void MainWindow::on_auth_btn_clicked()
+// {
 
+// }
+
+void MainWindow::on_auth_btn_clicked()
+{
+    AuthorizationWindow authWindow(this); // Передайте 'this' как родитель, если хотите
+    authWindow.exec(); // Открыть как модальное диалоговое окно
+}

@@ -9,17 +9,20 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    loginwindow.cpp \
+    authorizationwindow.cpp \
+    create_accountwindow.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
+    authorizationwindow.h \
+    create_accountwindow.h \
     dbconnection.h \
-    loginwindow.h \
     mainwindow.h
 
 FORMS += \
-    loginwindow.ui \
+    authorizationwindow.ui \
+    create_accountwindow.ui \
     mainwindow.ui
 
 # Default rules for deployment.
