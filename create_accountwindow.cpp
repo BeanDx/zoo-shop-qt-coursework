@@ -1,6 +1,8 @@
 #include "create_accountwindow.h"
 #include "ui_create_accountwindow.h"
 
+#include "dbconnection.h"
+
 #include "authorizationwindow.h"
 
 create_accountwindow::create_accountwindow(QWidget *parent)
@@ -26,5 +28,28 @@ void create_accountwindow::on_createAccount_login_clicked()
     AuthorizationWindow authWindow(this);
     this->close();
     authWindow.exec();
+}
+
+
+void create_accountwindow::on_createAccountBtn_clicked()
+{
+    QString name = ui->createAccount_name->text();
+    QString surname = ui->createAccount_surname->text();
+    QString email = ui->createAccount_email->text();
+    QString password = ui->createAccount_password->text();
+
+    QSqlQuery query;
+    query.prepare("INSERT INTO users (name, surname, email, user_password) VALUES (:name, :surname, :email, :user_password)");
+    query.bindValue(":name", name);
+    query.bindValue(":surname", surname);
+    query.bindValue(":email", email);
+    query.bindValue(":user_password", password);
+
+    if(!query.exec()) {
+        QMessageBox::critical(this, "Error!", "Error: " + query.lastError().text());
+    } else {
+        QMessageBox::information(this, "Nice!", "You are successfully registered.");
+        this->close();
+    }
 }
 

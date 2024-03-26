@@ -20,6 +20,8 @@ private slots:
 
     void on_createAccount_login_clicked();
 
+    void on_createAccountBtn_clicked();
+
 private:
     Ui::create_accountwindow *ui;
 };
