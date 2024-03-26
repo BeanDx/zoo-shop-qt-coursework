@@ -22,5 +22,8 @@ private slots:
 
 private:
     Ui::MainWindow *ui;
+
+public slots:
+    void updateUserEmail(QString email);
 };
 #endif // MAINWINDOW_H

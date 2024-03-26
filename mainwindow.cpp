@@ -23,6 +23,11 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_auth_btn_clicked()
 {
-    AuthorizationWindow authWindow(this); // Передайте 'this' как родитель, если хотите
-    authWindow.exec(); // Открыть как модальное диалоговое окно
+    AuthorizationWindow *authWindow = new AuthorizationWindow(this);
+    connect(authWindow, &AuthorizationWindow::loginSuccessful, this, &MainWindow::updateUserEmail);
+    authWindow->exec();
+}
+
+void MainWindow::updateUserEmail(QString email) {
+    ui->auth_btn->setText(email);
 }

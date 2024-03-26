@@ -50,6 +50,7 @@ void AuthorizationWindow::on_login_btn_clicked()
     if(query.exec()) {
         if(query.next()) {
             QMessageBox::information(this, "Successful login", "Welcome to the system!");
+            emit loginSuccessful(email); // signal
             this->close();
         } else {
             QMessageBox::warning(this, "Login failed", "Incorrect email or password.");

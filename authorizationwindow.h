@@ -24,6 +24,11 @@ private slots:
 
 private:
     Ui::AuthorizationWindow *ui;
+
+signals:
+    void loginSuccessful(QString userEmail);
+
+
 };
 
 #endif // AUTHORIZATIONWINDOW_H
