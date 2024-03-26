@@ -20,6 +20,8 @@ private slots:
 
     void on_login_cancel_clicked();
 
+    void on_login_btn_clicked();
+
 private:
     Ui::AuthorizationWindow *ui;
 };
