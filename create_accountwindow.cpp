@@ -38,6 +38,22 @@ void create_accountwindow::on_createAccountBtn_clicked()
     QString email = ui->createAccount_email->text();
     QString password = ui->createAccount_password->text();
 
+    // Проверяем, существует ли уже пользователь с таким email
+    QSqlQuery checkQuery;
+    checkQuery.prepare("SELECT * FROM users WHERE email = :email");
+    checkQuery.bindValue(":email", email);
+    if(checkQuery.exec()) {
+        if(checkQuery.next()) {
+            // Пользователь с таким email уже существует
+            QMessageBox::warning(this, "Registration error", "A user with this email already exists.");
+            return;
+        }
+    } else {
+        QMessageBox::critical(this, "Error", "Error executing request: " + checkQuery.lastError().text());
+        return;
+    }
+
+    // Если пользователя с таким email нет, то создаем нового пользователя
     QSqlQuery query;
     query.prepare("INSERT INTO users (name, surname, email, user_password) VALUES (:name, :surname, :email, :user_password)");
     query.bindValue(":name", name);
@@ -46,10 +62,11 @@ void create_accountwindow::on_createAccountBtn_clicked()
     query.bindValue(":user_password", password);
 
     if(!query.exec()) {
-        QMessageBox::critical(this, "Error!", "Error: " + query.lastError().text());
+        QMessageBox::critical(this, "Error!", "Error adding user: " + query.lastError().text());
     } else {
-        QMessageBox::information(this, "Nice!", "You are successfully registered.");
+        QMessageBox::information(this, "Successful registration", "You have successfully registered.");
         this->close();
     }
 }
+
 
