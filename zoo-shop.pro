@@ -12,18 +12,21 @@ SOURCES += \
     authorizationwindow.cpp \
     create_accountwindow.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    productitem.cpp
 
 HEADERS += \
     authorizationwindow.h \
     create_accountwindow.h \
     dbconnection.h \
-    mainwindow.h
+    mainwindow.h \
+    productitem.h
 
 FORMS += \
     authorizationwindow.ui \
     create_accountwindow.ui \
-    mainwindow.ui
+    mainwindow.ui \
+    productitem.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
