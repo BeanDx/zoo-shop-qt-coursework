@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "authorizationwindow.h"
+#include "productitem.h" // Убедитесь, что подключили заголовочный файл вашего окна с деталями товара
 #include "ui_mainwindow.h"
 #include <QSqlQuery>
 #include <QSqlError>
@@ -11,6 +12,10 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
     loadProducts(); // Вызов функции загрузки продуктов при инициализации окна
+
+    // Подключаем сигнал выбора элемента в списке к слоту отображения деталей товара
+    connect(ui->productsListWidget, &QListWidget::itemClicked, this, &MainWindow::showProductDetails);
+
 }
 
 MainWindow::~MainWindow()
@@ -30,6 +35,13 @@ void MainWindow::loadProducts() {
     } else {
         qDebug() << "Ошибка при выполнении запроса: " << query.lastError().text();
     }
+}
+
+void MainWindow::showProductDetails(QListWidgetItem *item) {
+    QString productName = item->text().split(" - ").first(); // Это разделит строку и возьмёт имя продукта
+
+    ProductItem *productItemWindow = new ProductItem(productName, this); // Предполагается, что ProductItem принимает имя продукта и родительский виджет
+    productItemWindow->exec(); // Отображаем окно с деталями товара
 }
 
 void MainWindow::on_auth_btn_clicked()

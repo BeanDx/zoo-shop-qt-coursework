@@ -2,6 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QListWidgetItem>
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -17,6 +19,7 @@ public:
 
 private slots:
     void on_auth_btn_clicked();
+    void showProductDetails(QListWidgetItem *item);
 
 public slots:
     void updateUserEmail(QString email);
