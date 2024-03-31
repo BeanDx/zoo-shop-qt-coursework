@@ -34,7 +34,7 @@ void ProductItem::setProductDescription(const QString &description) {
 }
 
 void ProductItem::setProductPrice(double price) {
-    ui->product_price->setText(QString::number(price, 'f', 2)); // форматируем число как строку с двумя знаками после запятой
+    ui->product_price->setText(QString::number(price, 'f', 2));
 }
 
 void ProductItem::on_product_cancel_btn_clicked()
