@@ -44,6 +44,16 @@
      <string>Authorization</string>
     </property>
    </widget>
+   <widget class="QListWidget" name="productsListWidget">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>60</y>
+      <width>451</width>
+      <height>391</height>
+     </rect>
+    </property>
+   </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">

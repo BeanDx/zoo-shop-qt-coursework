@@ -7,13 +7,15 @@
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    MainWindow w;
 
-    // Если соединение успешно, показываем список таблиц
-    if (createConnection()) {
-        listTables();
+    if (!createConnection()) {
+        // Если соединение не удалось, выходим из приложения
+        return -1;
     }
 
+    // Соединение успешно, продолжаем
+    MainWindow w;
     w.show();
+
     return a.exec();
 }
