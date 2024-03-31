@@ -38,11 +38,29 @@ void MainWindow::loadProducts() {
 }
 
 void MainWindow::showProductDetails(QListWidgetItem *item) {
-    QString productName = item->text().split(" - ").first(); // Это разделит строку и возьмёт имя продукта
+    // Получаем имя продукта
+    QString productName = item->text().split(" - ").first();
 
-    ProductItem *productItemWindow = new ProductItem(productName, this); // Предполагается, что ProductItem принимает имя продукта и родительский виджет
+    // Подготавливаем запрос для извлечения описания и цены из базы данных по имени продукта
+    QSqlQuery query;
+    query.prepare("SELECT description, price FROM products WHERE name = :name");
+    query.bindValue(":name", productName);
+
+    QString productDescription;
+    double productPrice = 0.0;
+
+    if (query.exec() && query.first()) {
+        productDescription = query.value(0).toString();
+        productPrice = query.value(1).toDouble();
+    } else {
+        qDebug() << "Ошибка при выполнении запроса: " << query.lastError().text();
+    }
+
+    // Создаем экземпляр ProductItem, передавая имя, описание и цену продукта
+    ProductItem *productItemWindow = new ProductItem(productName, productDescription, productPrice, this);
     productItemWindow->exec(); // Отображаем окно с деталями товара
 }
+
 
 void MainWindow::on_auth_btn_clicked()
 {

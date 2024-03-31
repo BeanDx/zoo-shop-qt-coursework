@@ -13,11 +13,12 @@ class ProductItem : public QDialog
 
 public:
     explicit ProductItem(QWidget *parent = nullptr);
-    ProductItem(const QString &name, QWidget *parent = nullptr); // Новый конструктор
+    ProductItem(const QString &name, const QString &description, double price, QWidget *parent = nullptr);
     ~ProductItem();
 
     void setProductName(const QString &name);
     void setProductDescription(const QString &description);
+    void setProductPrice(double price);
 
 private slots:
     void on_product_cancel_btn_clicked();

@@ -10,13 +10,14 @@ ProductItem::ProductItem(QWidget *parent)
 }
 
 // Конструктор, принимающий name и parent
-ProductItem::ProductItem(const QString &name, QWidget *parent)
+ProductItem::ProductItem(const QString &name, const QString &description, double price, QWidget *parent)
     : QDialog(parent)
     , ui(new Ui::ProductItem)
 {
     ui->setupUi(this);
     setProductName(name);
-    // Если вы хотите также инициализировать описание, добавьте соответствующий код здесь
+    setProductDescription(description);
+    setProductPrice(price);
 }
 
 ProductItem::~ProductItem()
@@ -30,6 +31,10 @@ void ProductItem::setProductName(const QString &name) {
 
 void ProductItem::setProductDescription(const QString &description) {
     ui->product_desc->setText(description);
+}
+
+void ProductItem::setProductPrice(double price) {
+    ui->product_price->setText(QString::number(price, 'f', 2)); // форматируем число как строку с двумя знаками после запятой
 }
 
 void ProductItem::on_product_cancel_btn_clicked()
