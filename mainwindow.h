@@ -20,6 +20,7 @@ public:
 private slots:
     void on_auth_btn_clicked();
     void showProductDetails(QListWidgetItem *item);
+    void onSearchTextChanged(const QString &text);
 
 public slots:
     void updateUserEmail(QString email);

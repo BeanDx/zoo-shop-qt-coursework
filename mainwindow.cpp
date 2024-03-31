@@ -15,6 +15,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     // Подключаем сигнал выбора элемента в списке к слоту отображения деталей товара
     connect(ui->productsListWidget, &QListWidget::itemClicked, this, &MainWindow::showProductDetails);
+    connect(ui->search_input, &QLineEdit::textChanged, this, &MainWindow::onSearchTextChanged);
 
 }
 
@@ -60,6 +61,24 @@ void MainWindow::showProductDetails(QListWidgetItem *item) {
     ProductItem *productItemWindow = new ProductItem(productName, productDescription, productPrice, this);
     productItemWindow->exec(); // Отображаем окно с деталями товара
 }
+
+void MainWindow::onSearchTextChanged(const QString &text) {
+    ui->productsListWidget->clear(); // Очищаем список перед заполнением новыми данными
+
+    QSqlQuery query;
+    QString queryString = "SELECT name, price FROM products WHERE name LIKE '%" + text + "%'";
+    if (query.exec(queryString)) {
+        while (query.next()) {
+            QString name = query.value(0).toString();
+            double price = query.value(1).toDouble();
+            QString itemText = QString("%1 - %2 грн").arg(name).arg(price);
+            ui->productsListWidget->addItem(itemText);
+        }
+    } else {
+        qDebug() << "Ошибка при выполнении запроса: " << query.lastError().text();
+    }
+}
+
 
 
 void MainWindow::on_auth_btn_clicked()
