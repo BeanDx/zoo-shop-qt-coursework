@@ -2,7 +2,7 @@
 #include "ui_cartwindow.h"
 
 CartWindow::CartWindow(QWidget *parent)
-    : QWidget(parent)
+    : QDialog(parent)
     , ui(new Ui::CartWindow)
 {
     ui->setupUi(this);

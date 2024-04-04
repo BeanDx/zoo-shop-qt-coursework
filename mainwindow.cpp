@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include "cartwindow.h"
 #include "authorizationwindow.h"
 #include "productitem.h" // Убедитесь, что подключили заголовочный файл вашего окна с деталями товара
 #include "ui_mainwindow.h"
@@ -98,4 +99,10 @@ void MainWindow::on_auth_btn_clicked()
 
 void MainWindow::updateUserEmail(QString email) {
     ui->auth_btn->setText(email);
+}
+
+void MainWindow::on_cart_btn_clicked()
+{
+    CartWindow *cartWindow = new CartWindow(this); // Создаем диалоговое окно корзины
+    cartWindow->exec(); // Открываем окно как модальное диалоговое окно
 }

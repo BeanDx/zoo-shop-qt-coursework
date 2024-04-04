@@ -1,13 +1,13 @@
 #ifndef CARTWINDOW_H
 #define CARTWINDOW_H
 
-#include <QWidget>
+#include <QDialog>
 
 namespace Ui {
 class CartWindow;
 }
 
-class CartWindow : public QWidget
+class CartWindow : public QDialog
 {
     Q_OBJECT
 

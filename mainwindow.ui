@@ -71,7 +71,7 @@
      <string>Products:</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="cart">
+   <widget class="QPushButton" name="cart_btn">
     <property name="geometry">
      <rect>
       <x>340</x>

@@ -22,6 +22,8 @@ private slots:
     void showProductDetails(QListWidgetItem *item);
     void onSearchTextChanged(const QString &text);
 
+    void on_cart_btn_clicked();
+
 public slots:
     void updateUserEmail(QString email);
 
