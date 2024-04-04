@@ -2,6 +2,8 @@
 #include "ui_productitem.h"
 #include "UserSession.h"
 
+#include <QMessageBox>
+
 // Конструктор, принимающий только id и parent
 ProductItem::ProductItem(int id, QWidget *parent)
     : QDialog(parent)
@@ -46,6 +48,14 @@ int ProductItem::getProductId() {
 
 void ProductItem::addToCart() {
     int userId = UserSession::getInstance().getUserId(); // Получаем ID пользователя
+
+    // Проверяем, авторизован ли пользователь
+    if (userId == -1) { // Предполагаем, что -1 означает "пользователь не авторизован"
+        QMessageBox::warning(this, "Authorization required", "To add items to your cart, you must log in to your account.");
+        // Здесь можно было бы также автоматически открыть окно авторизации, если это уместно
+        return; // Выходим из функции, не добавляя товар в корзину
+    }
+
     QSqlQuery query;
     query.prepare("SELECT quantity FROM cart WHERE user_id = :userId AND product_id = :productId");
     query.bindValue(":userId", userId);
@@ -70,6 +80,7 @@ void ProductItem::addToCart() {
         }
     }
 }
+
 
 void ProductItem::on_product_add_to_cart_btn_clicked() {
     addToCart();
