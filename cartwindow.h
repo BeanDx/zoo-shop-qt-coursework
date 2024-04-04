@@ -15,6 +15,8 @@ public:
     explicit CartWindow(QWidget *parent = nullptr);
     ~CartWindow();
 
+    void loadCartItems();
+
 private slots:
     void on_Cart_cancel_btn_clicked();
     void updateDeleteButtonState();
