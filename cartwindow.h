@@ -20,6 +20,7 @@ public:
 private slots:
     void on_Cart_cancel_btn_clicked();
     void updateDeleteButtonState();
+    void on_Cart_Delete_Btn_clicked();
 
 private:
     Ui::CartWindow *ui;

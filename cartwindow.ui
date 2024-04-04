@@ -60,19 +60,6 @@
   <widget class="QPushButton" name="Cart_Delete_Btn">
    <property name="geometry">
     <rect>
-     <x>280</x>
-     <y>440</y>
-     <width>91</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Delete</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="Cart_Checkout_btn">
-   <property name="geometry">
-    <rect>
      <x>390</x>
      <y>440</y>
      <width>91</width>
@@ -80,7 +67,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>Checkout</string>
+    <string>Delete</string>
    </property>
   </widget>
   <widget class="QListWidget" name="CartlistWidget">
