@@ -10,6 +10,7 @@ CONFIG += c++17
 
 SOURCES += \
     authorizationwindow.cpp \
+    cartwindow.cpp \
     create_accountwindow.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -17,6 +18,7 @@ SOURCES += \
 
 HEADERS += \
     authorizationwindow.h \
+    cartwindow.h \
     create_accountwindow.h \
     dbconnection.h \
     mainwindow.h \
@@ -24,6 +26,7 @@ HEADERS += \
 
 FORMS += \
     authorizationwindow.ui \
+    cartwindow.ui \
     create_accountwindow.ui \
     mainwindow.ui \
     productitem.ui
