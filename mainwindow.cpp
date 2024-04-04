@@ -26,23 +26,30 @@ MainWindow::~MainWindow()
 
 void MainWindow::loadProducts() {
     QSqlQuery query;
-    if (query.exec("SELECT name, price FROM products")) {
+    // Измените запрос, чтобы получать id продукта
+    if (query.exec("SELECT product_id, name, price FROM products")) {
         while (query.next()) {
-            QString name = query.value(0).toString();
-            double price = query.value(1).toDouble();
+            int id = query.value(0).toInt(); // Получаем id
+            QString name = query.value(1).toString();
+            double price = query.value(2).toDouble();
             QString itemText = QString("%1 - %2 грн").arg(name).arg(price);
-            ui->productsListWidget->addItem(itemText); // Предполагается, что у вас есть QListWidget с именем productsListWidget в вашем UI
+
+            // Создаем новый элемент списка
+            QListWidgetItem* newItem = new QListWidgetItem(itemText);
+            newItem->setData(Qt::UserRole, id); // Сохраняем id в данных элемента
+            ui->productsListWidget->addItem(newItem);
         }
     } else {
         qDebug() << "Ошибка при выполнении запроса: " << query.lastError().text();
     }
 }
 
+
 void MainWindow::showProductDetails(QListWidgetItem *item) {
-    // Получаем имя продукта
+    int productId = item->data(Qt::UserRole).toInt(); // Извлекаем id продукта
+
     QString productName = item->text().split(" - ").first();
 
-    // Подготавливаем запрос для извлечения описания и цены из базы данных по имени продукта
     QSqlQuery query;
     query.prepare("SELECT description, price FROM products WHERE name = :name");
     query.bindValue(":name", productName);
@@ -57,10 +64,11 @@ void MainWindow::showProductDetails(QListWidgetItem *item) {
         qDebug() << "Ошибка при выполнении запроса: " << query.lastError().text();
     }
 
-    // Создаем экземпляр ProductItem, передавая имя, описание и цену продукта
-    ProductItem *productItemWindow = new ProductItem(productName, productDescription, productPrice, this);
-    productItemWindow->exec(); // Отображаем окно с деталями товара
+    // Теперь создаем экземпляр ProductItem правильно, используя переменные
+    ProductItem *productItemWindow = new ProductItem(productId, productName, productDescription, productPrice, this);
+    productItemWindow->exec();
 }
+
 
 void MainWindow::onSearchTextChanged(const QString &text) {
     ui->productsListWidget->clear(); // Очищаем список перед заполнением новыми данными

@@ -26,8 +26,8 @@ private:
     Ui::AuthorizationWindow *ui;
 
 signals:
+    // void loginSuccessful(QString userEmail);
     void loginSuccessful(QString userEmail);
-
 
 };
 

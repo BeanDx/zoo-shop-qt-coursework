@@ -44,7 +44,7 @@
     <string>Your Cart</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton">
+  <widget class="QPushButton" name="Cart_cancel_btn">
    <property name="geometry">
     <rect>
      <x>130</x>
@@ -70,7 +70,7 @@
     <string>Delete</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="pushButton_3">
+  <widget class="QPushButton" name="Cart_Checkout_btn">
    <property name="geometry">
     <rect>
      <x>390</x>

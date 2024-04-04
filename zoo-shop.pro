@@ -17,6 +17,7 @@ SOURCES += \
     productitem.cpp
 
 HEADERS += \
+    UserSession.h \
     authorizationwindow.h \
     cartwindow.h \
     create_accountwindow.h \

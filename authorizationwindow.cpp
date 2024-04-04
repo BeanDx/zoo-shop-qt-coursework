@@ -1,6 +1,8 @@
 #include "authorizationwindow.h"
 #include "ui_authorizationwindow.h"
 
+#include "UserSession.h"
+
 #include "dbconnection.h"
 
 #include "create_accountwindow.h"
@@ -49,8 +51,10 @@ void AuthorizationWindow::on_login_btn_clicked()
 
     if(query.exec()) {
         if(query.next()) {
+            int userId = query.value("user_id").toInt();
             QMessageBox::information(this, "Successful login", "Welcome to the system!");
-            emit loginSuccessful(email); // signal
+            UserSession::getInstance().login(userId);
+            emit loginSuccessful(email);
             this->close();
         } else {
             QMessageBox::warning(this, "Login failed", "Incorrect email or password.");

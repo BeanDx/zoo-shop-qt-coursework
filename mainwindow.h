@@ -25,6 +25,7 @@ private slots:
 public slots:
     void updateUserEmail(QString email);
 
+
 private:
     Ui::MainWindow *ui;
     void loadProducts();
