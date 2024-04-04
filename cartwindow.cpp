@@ -29,7 +29,9 @@ void CartWindow::updateDeleteButtonState() {
 void CartWindow::loadCartItems() {
     ui->CartlistWidget->clear(); // Очищаем список перед загрузкой новых элементов
 
-    int userId = UserSession::getInstance().getUserId(); // Предполагаем, что у вас есть класс UserSession для управления сессией пользователя
+    int userId = UserSession::getInstance().getUserId();
+
+    double totalSum = 0.0;
 
     if (userId != -1) { // Проверяем, что пользователь авторизован
         QSqlQuery query;
@@ -42,9 +44,14 @@ void CartWindow::loadCartItems() {
                 int quantity = query.value(1).toInt();
                 double price = query.value(2).toDouble();
 
+                double itemTotal = price * quantity;
+                totalSum += itemTotal;
+
                 QString itemText = QString("%1 x%2 - %3 грн").arg(name).arg(quantity).arg(price * quantity); // Форматируем строку для отображения
                 ui->CartlistWidget->addItem(itemText); // Добавляем строку в список
             }
+
+            ui->total_sum->setText(QString::number(totalSum, 'f', 2));
         } else {
             qDebug() << "Ошибка при загрузке товаров в корзину: " << query.lastError().text();
         }

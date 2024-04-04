@@ -50,10 +50,9 @@ void ProductItem::addToCart() {
     int userId = UserSession::getInstance().getUserId(); // Получаем ID пользователя
 
     // Проверяем, авторизован ли пользователь
-    if (userId == -1) { // Предполагаем, что -1 означает "пользователь не авторизован"
+    if (userId == -1) {
         QMessageBox::warning(this, "Authorization required", "To add items to your cart, you must log in to your account.");
-        // Здесь можно было бы также автоматически открыть окно авторизации, если это уместно
-        return; // Выходим из функции, не добавляя товар в корзину
+        return;
     }
 
     QSqlQuery query;
@@ -67,7 +66,9 @@ void ProductItem::addToCart() {
         updateQuery.bindValue(":quantity", quantity);
         updateQuery.bindValue(":userId", userId);
         updateQuery.bindValue(":productId", productId);
-        if (!updateQuery.exec()) {
+        if (updateQuery.exec()) {
+            QMessageBox::information(this, "Item Updated", "The quantity of the item has been updated in your cart.");
+        } else {
             qDebug() << "Ошибка при обновлении количества товара в корзине: " << updateQuery.lastError().text();
         }
     } else {
@@ -75,11 +76,14 @@ void ProductItem::addToCart() {
         insertQuery.prepare("INSERT INTO cart (user_id, product_id, quantity) VALUES (:userId, :productId, 1)");
         insertQuery.bindValue(":userId", userId);
         insertQuery.bindValue(":productId", productId);
-        if (!insertQuery.exec()) {
+        if (insertQuery.exec()) {
+            QMessageBox::information(this, "Item Added", "The item has been added to your cart.");
+        } else {
             qDebug() << "Ошибка при добавлении товара в корзину: " << insertQuery.lastError().text();
         }
     }
 }
+
 
 
 void ProductItem::on_product_add_to_cart_btn_clicked() {
