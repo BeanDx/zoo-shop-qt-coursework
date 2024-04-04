@@ -7,6 +7,9 @@
 #include <QSqlError>
 #include <QDebug>
 
+#include "UserSession.h"
+#include <QMessageBox>
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -103,6 +106,13 @@ void MainWindow::updateUserEmail(QString email) {
 
 void MainWindow::on_cart_btn_clicked()
 {
-    CartWindow *cartWindow = new CartWindow(this); // Создаем диалоговое окно корзины
-    cartWindow->exec(); // Открываем окно как модальное диалоговое окно
+    int userId = UserSession::getInstance().getUserId(); // Получаем ID пользователя из сессии
+
+    if (userId == -1) {
+
+        QMessageBox::information(this, "Registration Required", "You need to be logged in to view the cart.");
+    } else {
+        CartWindow *cartWindow = new CartWindow(this);
+        cartWindow->exec();
+    }
 }
