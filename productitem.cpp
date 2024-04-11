@@ -51,7 +51,7 @@ void ProductItem::addToCart() {
 
     // Проверяем, авторизован ли пользователь
     if (userId == -1) {
-        QMessageBox::warning(this, "Authorization required", "To add items to your cart, you must log in to your account.");
+        QMessageBox::warning(this, "Потрібна авторизація", "Щоб додати товари до кошика, ви повинні увійти у свій обліковий запис.");
         return;
     }
 
@@ -67,7 +67,7 @@ void ProductItem::addToCart() {
         updateQuery.bindValue(":userId", userId);
         updateQuery.bindValue(":productId", productId);
         if (updateQuery.exec()) {
-            QMessageBox::information(this, "Item Updated", "The quantity of the item has been updated in your cart.");
+            QMessageBox::information(this, "Пункт оновлено", "У вашому кошику оновлено кількість товару.");
         } else {
             qDebug() << "Ошибка при обновлении количества товара в корзине: " << updateQuery.lastError().text();
         }
@@ -77,7 +77,7 @@ void ProductItem::addToCart() {
         insertQuery.bindValue(":userId", userId);
         insertQuery.bindValue(":productId", productId);
         if (insertQuery.exec()) {
-            QMessageBox::information(this, "Item Added", "The item has been added to your cart.");
+            QMessageBox::information(this, "Пункт додано", "Товар додано у ваш кошик.");
         } else {
             qDebug() << "Ошибка при добавлении товара в корзину: " << insertQuery.lastError().text();
         }

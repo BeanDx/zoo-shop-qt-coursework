@@ -41,7 +41,7 @@
     <string notr="true">* {font-size: 20px;}</string>
    </property>
    <property name="text">
-    <string>LOGIN IN ACCOUNT</string>
+    <string>ВХIД У АККАУНТ</string>
    </property>
   </widget>
   <widget class="QPushButton" name="login_btn">
@@ -54,7 +54,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>LOGIN</string>
+    <string>УВIЙТИ</string>
    </property>
   </widget>
   <widget class="QPushButton" name="create_account_btn">
@@ -67,7 +67,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>Don't have an account?</string>
+    <string>Ще не має аккаунту?</string>
    </property>
   </widget>
   <widget class="QLineEdit" name="login_password_input">
@@ -83,7 +83,7 @@
     <string notr="true">background-color: rgb(255, 166, 236);</string>
    </property>
    <property name="placeholderText">
-    <string>password...</string>
+    <string>пароль...</string>
    </property>
   </widget>
   <widget class="QLineEdit" name="login_email_input">
@@ -99,7 +99,7 @@
     <string notr="true">background-color: rgb(255, 166, 236);</string>
    </property>
    <property name="placeholderText">
-    <string>email...</string>
+    <string>пошта...</string>
    </property>
   </widget>
   <widget class="QLabel" name="loigin_label_2">
@@ -107,7 +107,7 @@
     <rect>
      <x>60</x>
      <y>150</y>
-     <width>161</width>
+     <width>181</width>
      <height>16</height>
     </rect>
    </property>
@@ -115,7 +115,7 @@
     <string notr="true">font-size: 15px;</string>
    </property>
    <property name="text">
-    <string>ENTER YOUR EMAIL</string>
+    <string>ВВЕДIТЬ СВОЮ ПОШТУ</string>
    </property>
   </widget>
   <widget class="QLabel" name="loigin_label_3">
@@ -131,7 +131,7 @@
     <string notr="true">font-size: 15px;</string>
    </property>
    <property name="text">
-    <string>ENTER YOUR PASSWORD</string>
+    <string>ВВЕДIТЬ СВIЙ ПАРОЛЬ</string>
    </property>
   </widget>
   <widget class="QPushButton" name="login_cancel">
@@ -144,7 +144,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>Cancel</string>
+    <string>Вiдмiна</string>
    </property>
   </widget>
  </widget>

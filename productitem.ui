@@ -76,7 +76,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>Add to cart</string>
+    <string>Додати до кошику</string>
    </property>
   </widget>
   <widget class="QPushButton" name="product_cancel_btn">
@@ -89,7 +89,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>Cancel</string>
+    <string>Вiдмiна</string>
    </property>
   </widget>
   <widget class="QLabel" name="label">

@@ -52,12 +52,12 @@ void AuthorizationWindow::on_login_btn_clicked()
     if(query.exec()) {
         if(query.next()) {
             int userId = query.value("user_id").toInt();
-            QMessageBox::information(this, "Successful login", "Welcome to the system!");
+            QMessageBox::information(this, "Успішний вхід", "Ласкаво просимо до системи!");
             UserSession::getInstance().login(userId);
             emit loginSuccessful(email);
             this->close();
         } else {
-            QMessageBox::warning(this, "Login failed", "Incorrect email or password.");
+            QMessageBox::warning(this, "Помилка логіну", "Неправильна адреса електронної пошти або пароль.");
         }
     } else {
         QMessageBox::critical(this, "Error", "Error executing request: " + query.lastError().text());

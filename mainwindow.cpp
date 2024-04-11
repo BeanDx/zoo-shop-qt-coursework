@@ -15,7 +15,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    loadProducts(); // Вызов функции загрузки продуктов при инициализации окна
+    loadProducts();
 
     // Подключаем сигнал выбора элемента в списке к слоту отображения деталей товара
     connect(ui->productsListWidget, &QListWidget::itemClicked, this, &MainWindow::showProductDetails);
@@ -44,7 +44,7 @@ void MainWindow::loadProducts() {
             ui->productsListWidget->addItem(newItem);
         }
     } else {
-        qDebug() << "Ошибка при выполнении запроса: " << query.lastError().text();
+        qDebug() << "Ошибка при виконанні запиту: " << query.lastError().text();
     }
 }
 
@@ -65,7 +65,7 @@ void MainWindow::showProductDetails(QListWidgetItem *item) {
         productDescription = query.value(0).toString();
         productPrice = query.value(1).toDouble();
     } else {
-        qDebug() << "Ошибка при выполнении запроса: " << query.lastError().text();
+        qDebug() << "Ошибка при виконанні запиту: " << query.lastError().text();
     }
 
     // Теперь создаем экземпляр ProductItem правильно, используя переменные
@@ -75,19 +75,25 @@ void MainWindow::showProductDetails(QListWidgetItem *item) {
 
 
 void MainWindow::onSearchTextChanged(const QString &text) {
-    ui->productsListWidget->clear(); // Очищаем список перед заполнением новыми данными
+    ui->productsListWidget->clear();
 
     QSqlQuery query;
-    QString queryString = "SELECT name, price FROM products WHERE name LIKE '%" + text + "%'";
+    QString queryString = "SELECT product_id, name, price FROM products WHERE name LIKE '%" + text + "%'";
     if (query.exec(queryString)) {
         while (query.next()) {
-            QString name = query.value(0).toString();
-            double price = query.value(1).toDouble();
+            int id = query.value(0).toInt();
+            QString name = query.value(1).toString();
+            double price = query.value(2).toDouble();
             QString itemText = QString("%1 - %2 грн").arg(name).arg(price);
-            ui->productsListWidget->addItem(itemText);
+
+            QListWidgetItem* newItem = new QListWidgetItem(itemText);
+            newItem->setData(Qt::UserRole, id);
+            ui->productsListWidget->addItem(newItem);
+
+
         }
     } else {
-        qDebug() << "Ошибка при выполнении запроса: " << query.lastError().text();
+        qDebug() << "Error: " << query.lastError().text();
     }
 }
 
@@ -110,7 +116,7 @@ void MainWindow::on_cart_btn_clicked()
 
     if (userId == -1) {
 
-        QMessageBox::information(this, "Registration Required", "You need to be logged in to view the cart.");
+        QMessageBox::information(this, "Реєстрація обов'язкова", "Ви повинні увійти в систему, щоб переглянути кошик.");
     } else {
         CartWindow *cartWindow = new CartWindow(this);
         cartWindow->exec();

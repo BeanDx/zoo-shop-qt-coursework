@@ -26,11 +26,11 @@ void CartWindow::updateDeleteButtonState() {
 }
 
 void CartWindow::loadCartItems() {
-    ui->CartlistWidget->clear(); // Очищаем список перед загрузкой новых элементов
+    ui->CartlistWidget->clear();
     int userId = UserSession::getInstance().getUserId();
     double totalSum = 0.0;
 
-    if (userId != -1) { // Проверяем, что пользователь авторизован
+    if (userId != -1) {
         QSqlQuery query;
         query.prepare("SELECT c.cart_id, p.name, c.quantity, p.price FROM cart c JOIN products p ON c.product_id = p.product_id WHERE c.user_id = :userId");
         query.bindValue(":userId", userId);
@@ -47,17 +47,15 @@ void CartWindow::loadCartItems() {
 
                 QString itemText = QString("%1 x%2 - %3 грн").arg(name).arg(quantity).arg(price * quantity);
                 QListWidgetItem* item = new QListWidgetItem(itemText);
-                item->setData(Qt::UserRole, cartId); // Сохраняем cart_id в пользовательских данных элемента
+                item->setData(Qt::UserRole, cartId);
                 ui->CartlistWidget->addItem(item);
             }
 
             ui->total_sum->setText(QString::number(totalSum, 'f', 2));
         } else {
-            qDebug() << "Ошибка при загрузке товаров в корзину: " << query.lastError().text();
+            qDebug() << "Error: " << query.lastError().text();
         }
-    } else {
-        // Можете показать сообщение о необходимости авторизации, если это уместно
-    }
+    } else { }
 }
 
 void CartWindow::on_Cart_Delete_Btn_clicked() {
@@ -69,9 +67,9 @@ void CartWindow::on_Cart_Delete_Btn_clicked() {
         query.prepare("DELETE FROM cart WHERE cart_id = :cartId");
         query.bindValue(":cartId", cartId);
         if (!query.exec()) {
-            qDebug() << "Ошибка при удалении товара из корзины: " << query.lastError().text();
+            qDebug() << "Error: " << query.lastError().text();
         } else {
-            loadCartItems(); // Перезагружаем элементы корзины, чтобы обновить список и общую сумму
+            loadCartItems(); // Reload
         }
     }
 }

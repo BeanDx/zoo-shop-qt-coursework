@@ -41,7 +41,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>Authorization</string>
+     <string>Авторизацiя</string>
     </property>
    </widget>
    <widget class="QListWidget" name="productsListWidget">
@@ -68,7 +68,7 @@
 </string>
     </property>
     <property name="text">
-     <string>Products:</string>
+     <string>Товари:</string>
     </property>
    </widget>
    <widget class="QPushButton" name="cart_btn">
@@ -81,7 +81,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>Cart</string>
+     <string>Корзина</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="search_input">
@@ -94,7 +94,7 @@
      </rect>
     </property>
     <property name="placeholderText">
-     <string>Search some product...</string>
+     <string>Пошук...</string>
     </property>
    </widget>
   </widget>

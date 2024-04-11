@@ -9,11 +9,9 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
 
     if (!createConnection()) {
-        // Если соединение не удалось, выходим из приложения
         return -1;
     }
 
-    // Соединение успешно, продолжаем
     MainWindow w;
     w.show();
 
