@@ -31,5 +31,6 @@ public slots:
 private:
     Ui::MainWindow *ui;
     void loadProducts();
+    void loadCategories();
 };
 #endif // MAINWINDOW_H

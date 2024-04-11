@@ -15,6 +15,8 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+
+    loadCategories();
     loadProducts();
 
     // Подключаем сигнал выбора элемента в списке к слоту отображения деталей товара
@@ -48,6 +50,19 @@ void MainWindow::loadProducts() {
     }
 }
 
+void MainWindow::loadCategories() {
+    ui->category_Combo_Box->addItem("", QVariant(-1));
+
+    QSqlQuery query;
+    if (query.exec("SELECT name FROM categories")) { // Предполагается, что у таблицы категорий есть столбец 'name'
+        while (query.next()) {
+            QString categoryName = query.value(0).toString();
+            ui->category_Combo_Box->addItem(categoryName);
+        }
+    } else {
+        qDebug() << "Ошибка при выполнении запроса на загрузку категорий: " << query.lastError().text();
+    }
+}
 
 void MainWindow::showProductDetails(QListWidgetItem *item) {
     int productId = item->data(Qt::UserRole).toInt(); // Извлекаем id продукта
