@@ -22,6 +22,8 @@ MainWindow::MainWindow(QWidget *parent)
     // Подключаем сигнал выбора элемента в списке к слоту отображения деталей товара
     connect(ui->productsListWidget, &QListWidget::itemClicked, this, &MainWindow::showProductDetails);
     connect(ui->search_input, &QLineEdit::textChanged, this, &MainWindow::onSearchTextChanged);
+    connect(ui->category_Combo_Box, &QComboBox::currentTextChanged, this, &MainWindow::onCategoryChanged);
+
 
 }
 
@@ -30,28 +32,49 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::loadProducts() {
+void MainWindow::loadProducts(const QString &category) {
+    ui->productsListWidget->clear();
     QSqlQuery query;
-    // Измените запрос, чтобы получать id продукта
-    if (query.exec("SELECT product_id, name, price FROM products")) {
+
+    // Формирование SQL-запроса с использованием JOIN для связи таблиц products и categories
+    QString queryString = "SELECT p.product_id, p.name, p.price FROM products p JOIN categories c ON p.category_id = c.id";
+
+    // Добавляем условие WHERE, если категория не пуста
+    if (!category.isEmpty()) {
+        queryString += " WHERE c.name = :category";
+        query.prepare(queryString);
+        query.bindValue(":category", category);
+    } else {
+        query.prepare(queryString);
+    }
+
+    // Выполнение запроса и заполнение списка продуктами
+    if (query.exec()) {
         while (query.next()) {
-            int id = query.value(0).toInt(); // Получаем id
+            int id = query.value(0).toInt();
             QString name = query.value(1).toString();
             double price = query.value(2).toDouble();
             QString itemText = QString("%1 - %2 грн").arg(name).arg(price);
 
-            // Создаем новый элемент списка
             QListWidgetItem* newItem = new QListWidgetItem(itemText);
-            newItem->setData(Qt::UserRole, id); // Сохраняем id в данных элемента
+            newItem->setData(Qt::UserRole, id);
             ui->productsListWidget->addItem(newItem);
         }
     } else {
-        qDebug() << "Ошибка при виконанні запиту: " << query.lastError().text();
+        qDebug() << "Ошибка при выполнении запроса: " << query.lastError().text();
     }
 }
 
+
+void MainWindow::onCategoryChanged(const QString &category) {
+    loadProducts(category);
+}
+
+
+
 void MainWindow::loadCategories() {
     ui->category_Combo_Box->addItem("", QVariant(-1));
+
 
     QSqlQuery query;
     if (query.exec("SELECT name FROM categories")) { // Предполагается, что у таблицы категорий есть столбец 'name'
@@ -104,8 +127,6 @@ void MainWindow::onSearchTextChanged(const QString &text) {
             QListWidgetItem* newItem = new QListWidgetItem(itemText);
             newItem->setData(Qt::UserRole, id);
             ui->productsListWidget->addItem(newItem);
-
-
         }
     } else {
         qDebug() << "Error: " << query.lastError().text();
