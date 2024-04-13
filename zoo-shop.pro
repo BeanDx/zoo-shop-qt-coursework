@@ -12,6 +12,7 @@ SOURCES += \
     authorizationwindow.cpp \
     cartwindow.cpp \
     create_accountwindow.cpp \
+    load_images.cpp \
     main.cpp \
     mainwindow.cpp \
     productitem.cpp
@@ -22,6 +23,7 @@ HEADERS += \
     cartwindow.h \
     create_accountwindow.h \
     dbconnection.h \
+    load_images.h \
     mainwindow.h \
     productitem.h
 
