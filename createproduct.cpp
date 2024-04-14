@@ -59,19 +59,22 @@ void CreateProduct::on_createProductBtn_clicked()
 
     // Создание и подготовка SQL запроса
     QSqlQuery query;
-    query.prepare("INSERT INTO products (name, description, price, image) VALUES (:name, :description, :price, :image)");
+    // Добавляем category_id со значением 3
+    query.prepare("INSERT INTO products (name, description, price, image, category_id) VALUES (:name, :description, :price, :image, :category_id)");
     query.bindValue(":name", name);
     query.bindValue(":description", description);
     query.bindValue(":price", price);
     query.bindValue(":image", imagePath);
+    query.bindValue(":category_id", 3); // Здесь указываем, что category_id всегда будет 3
 
     // Выполнение запроса и обработка результата
     if (!query.exec()) {
-        QMessageBox::critical(this, tr("Ошибка вставки"), query.lastError().text());
+        QMessageBox::critical(this, tr("Помилка вставки"), query.lastError().text());
     } else {
-        QMessageBox::information(this, tr("Успех"), tr("Товар успешно добавлен в базу данных!"));
+        QMessageBox::information(this, tr("Успіх"), tr("Товар успішно доданий до бази даних!"));
         this->close();
     }
 }
+
 
 

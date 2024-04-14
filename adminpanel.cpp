@@ -84,6 +84,7 @@ void AdminPanel::onDeleteItemClicked() {
 void AdminPanel::on_createItemAdminPanel_clicked()
 {
     CreateProduct *createProduct = new CreateProduct(this);
+    connect(createProduct, &QDialog::finished, this, &AdminPanel::loadProducts);
     createProduct->exec();
 }
 

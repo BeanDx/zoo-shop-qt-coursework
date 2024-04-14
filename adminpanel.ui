@@ -57,7 +57,7 @@
   <widget class="QPushButton" name="deleteItemAdminPanel">
    <property name="geometry">
     <rect>
-     <x>140</x>
+     <x>250</x>
      <y>460</y>
      <width>121</width>
      <height>41</height>
@@ -65,19 +65,6 @@
    </property>
    <property name="text">
     <string>Видалити Товар</string>
-   </property>
-  </widget>
-  <widget class="QPushButton" name="changeItemAdminPanel">
-   <property name="geometry">
-    <rect>
-     <x>270</x>
-     <y>460</y>
-     <width>101</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Змiнити товар</string>
    </property>
   </widget>
   <widget class="QPushButton" name="createItemAdminPanel">
