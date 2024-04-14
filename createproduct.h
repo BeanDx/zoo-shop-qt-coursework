@@ -21,8 +21,6 @@ public:
 private slots:
     void on_cancel_btn_clicked();
 
-    void on_chooseImageBtn_clicked();
-
     void on_createProductBtn_clicked();
 
 private:

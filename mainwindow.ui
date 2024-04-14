@@ -81,7 +81,7 @@
      </rect>
     </property>
     <property name="text">
-     <string>Корзина</string>
+     <string>Кошик</string>
     </property>
    </widget>
    <widget class="QLineEdit" name="search_input">
