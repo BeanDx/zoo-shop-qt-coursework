@@ -15,8 +15,14 @@ public:
     explicit AdminPanel(QWidget *parent = nullptr);
     ~AdminPanel();
 
+signals:
+    void adminPanelClosed();
+
 private slots:
     void on_cancel_btn_clicked();
+
+    void loadProducts();
+    void onDeleteItemClicked();
 
 private:
     Ui::AdminPanel *ui;

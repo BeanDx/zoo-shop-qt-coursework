@@ -24,11 +24,11 @@ private slots:
     void onSearchTextChanged(const QString &text);
     void on_cart_btn_clicked();
     void onCategoryChanged(const QString &category);  // Раскомментируйте или добавьте этот слот
-
     void on_AdminPanelBtn_clicked();
 
 public slots:
     void updateUserEmail(QString email);
+    void reloadProducts();
 
 private:
     Ui::MainWindow *ui;

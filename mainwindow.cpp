@@ -167,10 +167,15 @@ void MainWindow::on_cart_btn_clicked()
     }
 }
 
+void MainWindow::reloadProducts() {
+    loadProducts(ui->category_Combo_Box->currentText());
+}
+
 void MainWindow::on_AdminPanelBtn_clicked()
 {
     AdminPanel *adminPanelWindow = new AdminPanel(this);
     adminPanelWindow->setAttribute(Qt::WA_DeleteOnClose);
+    connect(adminPanelWindow, &AdminPanel::adminPanelClosed, this, &MainWindow::reloadProducts);
     adminPanelWindow->exec();
 }
 
