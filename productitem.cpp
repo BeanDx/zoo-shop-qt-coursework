@@ -91,10 +91,10 @@ void ProductItem::loadProductImage() {
     QSqlQuery query;
     QString queryString = QString("SELECT image FROM products WHERE product_id = %1").arg(productId);
     if (query.exec(queryString) && query.next()) {
-        QByteArray imageData = query.value(0).toByteArray();
+        QString imagePath = query.value(0).toString(); // Получаем путь к файлу изображения из базы
         QPixmap pixmap;
-        if (!pixmap.loadFromData(imageData)) {
-            qDebug() << "Неможливо завантажити зображення з даних";
+        if (!pixmap.load(imagePath)) { // Загружаем изображение из файла
+            qDebug() << "Неможливо завантажити зображення з файлу:" << imagePath;
         } else {
             ui->productImageLabel->setPixmap(pixmap.scaled(ui->productImageLabel->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
         }
@@ -102,6 +102,7 @@ void ProductItem::loadProductImage() {
         qDebug() << "Ошибка загрузки изображения: " << query.lastError().text();
     }
 }
+
 
 
 

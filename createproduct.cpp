@@ -29,13 +29,10 @@ void CreateProduct::on_cancel_btn_clicked()
 void CreateProduct::on_chooseImageBtn_clicked()
 {
     imagePath = QFileDialog::getOpenFileName(this,
-                                             tr("Выберите изображение"), "",
-                                             tr("Изображения (*.png *.jpg *.jpeg *.bmp *.gif)"));
+                                             tr("Виберіть зображення"), "",
+                                             tr("Зображення (*.png *.jpg *.jpeg *.bmp *.gif)"));
     if (!imagePath.isEmpty()) {
-        qDebug() << "Выбран файл:" << imagePath;
-        // Опционально: можно обновить элемент интерфейса, показывающий выбранное изображение
-        // Например, если у вас есть QLabel для показа изображения:
-        // ui->imageLabel->setPixmap(QPixmap(imagePath));
+        qDebug() << "Вибраний файл:" << imagePath;
     } else {
         QMessageBox::warning(this, tr("Ошибка"), tr("Файл не выбран."));
         qDebug() << "Файл не выбран";
@@ -53,7 +50,7 @@ void CreateProduct::on_createProductBtn_clicked()
 
     // Проверка корректности пути к изображению
     if (imagePath.isEmpty()) {
-        QMessageBox::warning(this, tr("Ошибка"), tr("Необходимо выбрать изображение для продукта!"));
+        QMessageBox::warning(this, tr("Помилка"), tr("Необхідно вибрати зображення для продукту!"));
         return;
     }
 
@@ -65,7 +62,7 @@ void CreateProduct::on_createProductBtn_clicked()
     query.bindValue(":description", description);
     query.bindValue(":price", price);
     query.bindValue(":image", imagePath);
-    query.bindValue(":category_id", 3); // Здесь указываем, что category_id всегда будет 3
+    query.bindValue(":category_id", 3);
 
     // Выполнение запроса и обработка результата
     if (!query.exec()) {
