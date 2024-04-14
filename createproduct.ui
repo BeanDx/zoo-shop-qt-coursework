@@ -118,6 +118,19 @@
     <string>Створити Товар!</string>
    </property>
   </widget>
+  <widget class="QPushButton" name="chooseImageBtn">
+   <property name="geometry">
+    <rect>
+     <x>50</x>
+     <y>290</y>
+     <width>151</width>
+     <height>31</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Вибрати зображення</string>
+   </property>
+  </widget>
  </widget>
  <resources/>
  <connections/>
