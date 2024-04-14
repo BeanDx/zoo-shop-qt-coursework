@@ -4,6 +4,10 @@
 #include <QFileDialog>
 #include <QMessageBox>
 
+#include <QSqlQuery>
+#include <QSqlError>
+#include <QDebug>
+
 CreateProduct::CreateProduct(QWidget *parent)
     : QDialog(parent)
     , ui(new Ui::CreateProduct)
@@ -24,12 +28,50 @@ void CreateProduct::on_cancel_btn_clicked()
 
 void CreateProduct::on_chooseImageBtn_clicked()
 {
-    QString fileName = QFileDialog::getOpenFileName(this,
-                                                    tr("Виберіть зображення"), "",
-                                                    tr("Зображення (*.png *.jpg *.jpeg *.bmp *.gif)"));
-
-    if (!fileName.isEmpty()) { } else {
-        QMessageBox::warning(this, tr("Помилка!"), tr("Файл не вибраний."));
+    imagePath = QFileDialog::getOpenFileName(this,
+                                             tr("Выберите изображение"), "",
+                                             tr("Изображения (*.png *.jpg *.jpeg *.bmp *.gif)"));
+    if (!imagePath.isEmpty()) {
+        qDebug() << "Выбран файл:" << imagePath;
+        // Опционально: можно обновить элемент интерфейса, показывающий выбранное изображение
+        // Например, если у вас есть QLabel для показа изображения:
+        // ui->imageLabel->setPixmap(QPixmap(imagePath));
+    } else {
+        QMessageBox::warning(this, tr("Ошибка"), tr("Файл не выбран."));
+        qDebug() << "Файл не выбран";
     }
 }
+
+
+
+void CreateProduct::on_createProductBtn_clicked()
+{
+    // Считывание данных из полей ввода
+    QString name = ui->nameProduct_input->text();
+    QString description = ui->descriptionProduct_input->toPlainText();
+    double price = ui->priceProduct_input->text().toDouble();
+
+    // Проверка корректности пути к изображению
+    if (imagePath.isEmpty()) {
+        QMessageBox::warning(this, tr("Ошибка"), tr("Необходимо выбрать изображение для продукта!"));
+        return;
+    }
+
+    // Создание и подготовка SQL запроса
+    QSqlQuery query;
+    query.prepare("INSERT INTO products (name, description, price, image) VALUES (:name, :description, :price, :image)");
+    query.bindValue(":name", name);
+    query.bindValue(":description", description);
+    query.bindValue(":price", price);
+    query.bindValue(":image", imagePath);
+
+    // Выполнение запроса и обработка результата
+    if (!query.exec()) {
+        QMessageBox::critical(this, tr("Ошибка вставки"), query.lastError().text());
+    } else {
+        QMessageBox::information(this, tr("Успех"), tr("Товар успешно добавлен в базу данных!"));
+        this->close();
+    }
+}
+
 
