@@ -24,7 +24,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->search_input, &QLineEdit::textChanged, this, &MainWindow::onSearchTextChanged);
     connect(ui->category_Combo_Box, &QComboBox::currentTextChanged, this, &MainWindow::onCategoryChanged);
 
-
+    ui->AdminPanelBtn->setVisible(false);
 }
 
 MainWindow::~MainWindow()
@@ -144,6 +144,12 @@ void MainWindow::on_auth_btn_clicked()
 
 void MainWindow::updateUserEmail(QString email) {
     ui->auth_btn->setText(email);
+
+    if (email == "admin") {
+        ui->AdminPanelBtn->setVisible(true);
+    } else {
+        ui->AdminPanelBtn->setVisible(false);
+    }
 }
 
 void MainWindow::on_cart_btn_clicked()

@@ -1,6 +1,7 @@
 #include "productitem.h"
 #include "ui_productitem.h"
 #include "UserSession.h"
+#include <QBuffer>
 
 #include <QMessageBox>
 
@@ -11,6 +12,7 @@ ProductItem::ProductItem(int id, QWidget *parent)
     , productId(id)
 {
     ui->setupUi(this);
+    loadProductImage();
 }
 
 // Конструктор, принимающий id, name, description, price и parent
@@ -23,6 +25,7 @@ ProductItem::ProductItem(int id, const QString &name, const QString &description
     setProductName(name);
     setProductDescription(description);
     setProductPrice(price);
+    loadProductImage();
 }
 
 ProductItem::~ProductItem()
@@ -79,10 +82,29 @@ void ProductItem::addToCart() {
         if (insertQuery.exec()) {
             QMessageBox::information(this, "Пункт додано", "Товар додано у ваш кошик.");
         } else {
-            qDebug() << "Ошибка при добавлении товара в корзину: " << insertQuery.lastError().text();
+            qDebug() << "Помилка при додаванні товару в кошик: " << insertQuery.lastError().text();
         }
     }
 }
+
+void ProductItem::loadProductImage() {
+    QSqlQuery query;
+    QString queryString = QString("SELECT image FROM products WHERE product_id = %1").arg(productId);
+    if (query.exec(queryString) && query.next()) {
+        QByteArray imageData = query.value(0).toByteArray();
+        QPixmap pixmap;
+        if (!pixmap.loadFromData(imageData)) {
+            qDebug() << "Неможливо завантажити зображення з даних";
+        } else {
+            ui->productImageLabel->setPixmap(pixmap.scaled(ui->productImageLabel->size(), Qt::KeepAspectRatio, Qt::SmoothTransformation));
+        }
+    } else {
+        qDebug() << "Ошибка загрузки изображения: " << query.lastError().text();
+    }
+}
+
+
+
 
 
 

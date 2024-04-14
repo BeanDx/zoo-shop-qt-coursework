@@ -36,6 +36,7 @@ private:
     int productId;
 
     void addToCart();
+    void loadProductImage();
 };
 
 #endif // PRODUCTITEM_H
