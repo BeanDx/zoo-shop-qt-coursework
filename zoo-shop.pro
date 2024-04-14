@@ -13,6 +13,7 @@ SOURCES += \
     authorizationwindow.cpp \
     cartwindow.cpp \
     create_accountwindow.cpp \
+    createproduct.cpp \
     load_images.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -24,6 +25,7 @@ HEADERS += \
     authorizationwindow.h \
     cartwindow.h \
     create_accountwindow.h \
+    createproduct.h \
     dbconnection.h \
     load_images.h \
     mainwindow.h \
@@ -34,6 +36,7 @@ FORMS += \
     authorizationwindow.ui \
     cartwindow.ui \
     create_accountwindow.ui \
+    createproduct.ui \
     mainwindow.ui \
     productitem.ui
 
