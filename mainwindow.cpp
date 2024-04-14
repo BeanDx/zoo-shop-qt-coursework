@@ -1,7 +1,9 @@
 #include "mainwindow.h"
 #include "cartwindow.h"
 #include "authorizationwindow.h"
-#include "productitem.h" // Убедитесь, что подключили заголовочный файл вашего окна с деталями товара
+#include "productitem.h"
+#include "adminpanel.h"
+
 #include "ui_mainwindow.h"
 #include <QSqlQuery>
 #include <QSqlError>
@@ -164,3 +166,11 @@ void MainWindow::on_cart_btn_clicked()
         cartWindow->exec();
     }
 }
+
+void MainWindow::on_AdminPanelBtn_clicked()
+{
+    AdminPanel *adminPanelWindow = new AdminPanel(this);
+    adminPanelWindow->setAttribute(Qt::WA_DeleteOnClose);
+    adminPanelWindow->exec();
+}
+

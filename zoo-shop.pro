@@ -9,6 +9,7 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    adminpanel.cpp \
     authorizationwindow.cpp \
     cartwindow.cpp \
     create_accountwindow.cpp \
@@ -19,6 +20,7 @@ SOURCES += \
 
 HEADERS += \
     UserSession.h \
+    adminpanel.h \
     authorizationwindow.h \
     cartwindow.h \
     create_accountwindow.h \
@@ -28,6 +30,7 @@ HEADERS += \
     productitem.h
 
 FORMS += \
+    adminpanel.ui \
     authorizationwindow.ui \
     cartwindow.ui \
     create_accountwindow.ui \
