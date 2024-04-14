@@ -1,13 +1,13 @@
 #ifndef CREATEPRODUCT_H
 #define CREATEPRODUCT_H
 
-#include <QWidget>
+#include <QDialog>
 
 namespace Ui {
 class CreateProduct;
 }
 
-class CreateProduct : public QWidget
+class CreateProduct : public QDialog
 {
     Q_OBJECT
 

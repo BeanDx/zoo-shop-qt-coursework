@@ -24,6 +24,8 @@ private slots:
     void loadProducts();
     void onDeleteItemClicked();
 
+    void on_createItemAdminPanel_clicked();
+
 private:
     Ui::AdminPanel *ui;
 };

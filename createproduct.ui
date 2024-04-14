@@ -118,24 +118,7 @@
     <string>Створити Товар!</string>
    </property>
   </widget>
-  <widget class="KImageFilePreview" name="pictureProduct">
-   <property name="geometry">
-    <rect>
-     <x>50</x>
-     <y>290</y>
-     <width>161</width>
-     <height>51</height>
-    </rect>
-   </property>
-  </widget>
  </widget>
- <customwidgets>
-  <customwidget>
-   <class>KImageFilePreview</class>
-   <extends>QWidget</extends>
-   <header>kimagefilepreview.h</header>
-  </customwidget>
- </customwidgets>
  <resources/>
  <connections/>
 </ui>

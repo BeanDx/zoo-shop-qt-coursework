@@ -2,7 +2,7 @@
 #include "ui_createproduct.h"
 
 CreateProduct::CreateProduct(QWidget *parent)
-    : QWidget(parent)
+    : QDialog(parent)
     , ui(new Ui::CreateProduct)
 {
     ui->setupUi(this);

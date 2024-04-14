@@ -1,6 +1,8 @@
 #include "adminpanel.h"
 #include "ui_adminpanel.h"
 
+#include "createproduct.h"
+
 #include <QSqlQuery>
 #include <QSqlError>
 #include <QMessageBox>
@@ -77,4 +79,11 @@ void AdminPanel::onDeleteItemClicked() {
 //     form->exec();
 //     loadProducts(); // Перезагрузить список товаров после изменения
 // }
+
+
+void AdminPanel::on_createItemAdminPanel_clicked()
+{
+    CreateProduct *createProduct = new CreateProduct(this);
+    createProduct->exec();
+}
 
